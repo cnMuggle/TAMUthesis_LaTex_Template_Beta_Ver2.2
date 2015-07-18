@@ -1,0 +1,243 @@
+%%%%%%%%%%%%%%%%%%%%%
+%	gaofeng@tamu.edu
+%%%%%%%%%%%%%%%%%%%%%
+%the pdf complied from this file is monochrome
+%\documentclass[12pt, letter,singleside]{book}
+\documentclass[12pt, letter,twoside]{book}
+
+
+% AREA to claim  Package
+
+%\usepackage[xetex,bookmarks, hidelinks]{hyperref}  % comment to disable hyper-link in table of contents
+%\usepackage{babel}
+\usepackage{color, graphicx}
+\usepackage{amsmath}
+\usepackage{multirow}
+%\usepackage{rotating}
+\usepackage{booktabs}
+\usepackage[top=1.25in, bottom=1.25in, left=1.4in, right=1.15in]{geometry}
+%\usepackage[retainorgcmds]{IEEEtrantools}
+\usepackage{setspace}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{pdflscape} 
+\usepackage{enumitem} %remove vertical space between itemize/enumerate
+
+
+%change font style to Arial
+\usepackage{fontspec}
+%\setmainfont{Arial}
+\setmainfont{Times New Roman}
+
+%remove vertical space between items in itemize
+\setlist[itemize]{noitemsep, nolistsep}
+\setlist[enumerate]{noitemsep, nolistsep}
+\setlist[description]{noitemsep, nolistsep}
+
+
+%optional for hyperref 
+\providecommand\phantomsection{}
+
+
+\makeatletter
+\renewcommand*\large{\fontsize{14.1}{14.1}\selectfont}	%fine tunement to adjust \large to be 14pt exactly
+\makeatother
+
+%indent after chapter/sectioin, only affect the first one
+\usepackage{indentfirst}
+
+\setlength{\parindent}{1cm} %first indent
+
+
+%appendix package with Appendix A, B, C, comment because conflict with another approach which results in the same effect.
+%\usepackage[titletoc,title]{appendix}
+
+%chapter title center
+\usepackage{titlesec}
+%chapter title center
+\renewcommand{\chaptertitlename}{CHAPTER}
+\renewcommand{\appendixname}{APPENDIX}
+\renewcommand{\bibname}{REFERENCES}
+\titleformat{\chapter}[display]{\vspace{1ex}\large\bfseries\centering}{\chaptertitlename\ \thechapter}{0.1ex}{\large}
+%modify section title font size
+\titleformat*{\section}{\large\bfseries}
+
+
+%\titleformat{\chapter}
+%{\doublespacing\normalfont\large\bfseries}{\thechapter}{1em}{}
+
+%comment later
+\usepackage{lipsum}% http://ctan.org/pkg/lipsum, generate random words to fill in the blank
+
+\usepackage{caption}
+
+\setstretch{1}
+%\linespread{1} %normal spacing, single spacing.
+
+\usepackage{fancyhdr}
+\lhead{}
+\chead{}
+\rhead{}
+%\lfoot{}
+%\rfoot{\thepage}
+\cfoot{\thepage}
+%\fancyfoot[RO, LE]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+
+\usepackage{tocloft}
+%enable that toc has no section number, no subsection number as well
+\makeatletter
+\renewcommand{\cftsecpresnum}{\begin{lrbox}{\@tempboxa}}		%for section
+\renewcommand{\cftsecaftersnum}{\end{lrbox}}				%for section
+\renewcommand{\cftsubsecpresnum}{\begin{lrbox}{\@tempboxa}}	%for subsection
+\renewcommand{\cftsubsecaftersnum}{\end{lrbox}}				%for subsection
+\makeatother
+
+% add vertical spacing in toc after chapter entry
+\renewcommand\cftchapafterpnum{\vskip1em}
+%increase the vertical spacing between chapter item in toc only ``2pt''
+\makeatletter
+\newskip\old@cftbeforechapskip
+\old@cftbeforechapskip\cftbeforechapskip
+\let\old@l@chapter\l@chapter
+\let\old@l@section\l@section
+\def\l@chapter#1#2{\old@l@chapter{#1}{#2}\cftbeforechapskip2pt}% set your value here
+\def\l@section#1#2{\old@l@section{#1}{#2}\cftbeforechapskip\old@cftbeforechapskip}
+\makeatother
+
+
+%add vertical space in lof to have equal space for each figure item
+\newcommand*{\noaddvspace}{\renewcommand*{\addvspace}[1]{}}
+\addtocontents{lof}{\protect\noaddvspace}
+\addtocontents{lot}{\protect\noaddvspace}
+\addtocontents{lof}{\linespread{1.5}\selectfont}
+%add vertical space in lof to have equal space for each figure item
+\addtocontents{lot}{\linespread{1.5}\selectfont}
+
+
+
+%with package tocloft, add ""Page" , not look good, obsolote
+%\renewcommand\cftaftertoctitle{\hfill\null\\\null\hfill{Page}}
+%\renewcommand\cftaftertoctitle{\hfill\llap{\bfseries Page}}
+
+
+
+\usepackage{afterpage} %enable the "PAGE" or other information on the consequencing next page
+%add "PAGE" to toc/lof/lot 
+\addtocontents{toc}{~\hfill {Page} \par}
+\addtocontents{toc}{~\hfill \par}	%double space of toc word `'Page' and the chapter title.
+
+
+%%UNCOMMENT the below group to have style II of lof/lot
+%\addtocontents{lof}{~\hfill {Page} \par}
+%\addtocontents{lot}{~\hfill {Page} \par}
+%%list of figures with "FIGURE"
+%\renewcommand{\cftfigfont}{Figure ~}
+%\renewcommand{\cfttabfont}{Table ~}
+
+
+%UNCOMMENT the below group to have style I of lof/lot
+% feature is not comprenhensive yet. no FIGURE and TABLE on the 2nd page.
+\addtocontents{lof}{{FIGURE}~\hfill {Page} \par}
+\addtocontents{lof}{~\hfill  \par}
+\addtocontents{lot}{{TABLE}~\hfill {Page} \par}
+\addtocontents{lot}{~\hfill \par}
+
+
+%\renewcommand{\cftchapfont}{\bfseries}
+%\renewcommand{\cftchappagefont}{\bfseries}
+\renewcommand{\cftchapfont}{\normalfont}
+\renewcommand{\cftchappagefont}{\normalfont}
+\renewcommand{\cftchappresnum}{CHAPTER }
+%\renewcommand{\cftchapaftersnum}{.}
+\renewcommand{\cftchapnumwidth}{7em}
+%Chapter Roman Numbering
+\renewcommand\thechapter{\Roman{chapter}}
+
+
+%leader dots in TABLE OF CONTENTS
+\renewcommand{\cftpartleader}{\cftdotfill{\cftdotsep}} % for parts
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}} % for chapters
+
+
+
+\makeatletter
+\newcommand*\updatechaptername{%
+        \addtocontents{toc}{\protect\renewcommand*\protect\cftchappresnum{\@chapapp\ }}
+}
+\makeatother
+
+%modify toc/lof/lot font size and align horizontal middle
+\renewcommand{\cfttoctitlefont}{\large\bfseries}
+\renewcommand{\cftloftitlefont}{\large\bfseries}
+\renewcommand{\cftlottitlefont}{\large\bfseries}
+%\renewcommand{\cfttoctitlefont}{\hfill\Huge}
+\renewcommand{\contentsname}{\centerline{TABLE OF CONTENTS}}
+\renewcommand{\listfigurename}{\centerline{LIST OF FIGURES}}
+\renewcommand{\listtablename}{\centerline{LIST OF TABLES}}
+%\addtocontents{toc}{chapter}{\numberline{}Abstract}
+
+
+%%%%%%%%%%%%%%%%%
+%remove the vertical spacing before toc/lof/lot
+\setlength{\cftbeforetoctitleskip}{-1.2em}
+\setlength{\cftbeforeloftitleskip}{-1.2em}
+\setlength{\cftbeforelottitleskip}{-1.2em}
+%modify the vertical spacing after title of toc/lof/lot
+\setlength{\cfttabnumwidth}{4em}
+\setlength{\cftfignumwidth}{4em}
+
+%remove the vertical space above CHAPTER title in each chapter, not toc
+\titlespacing*{\chapter}{0pt}{-4ex}{6ex}
+%modify the vertical space above/below section/subsection title in the main content, not toc.
+\titlespacing*{\section}{0pt}{1ex}{0.5ex}
+\titlespacing*{\subsection}{0pt}{1ex}{0.5ex}
+\titlespacing*{\subsubsection}{0pt}{1ex}{0.5ex}
+\titlespacing*{\paragraph}{0pt}{1ex}{0.5ex}
+
+
+%%change equation vertical space
+\makeatletter
+\g@addto@macro\normalsize{%
+%  \setlength\abovedisplayskip{0pt plus 1em minus 1em}
+%  \setlength\belowdisplayskip{0pt plus 1em minus 1em}
+%  \setlength\abovedisplayshortskip{0pt plus 1em minus 1em}
+%  \setlength\belowdisplayshortskip{0pt plus 1em minus 1em}
+  \setlength\abovedisplayskip{0ex plus 1ex minus 1ex}
+  \setlength\belowdisplayskip{0pt plus 1ex minus 1ex}% plus 1ex minus 1ex}
+  \setlength\abovedisplayshortskip{0ex  plus 1ex minus 1ex}
+  \setlength\belowdisplayshortskip{0pt plus 1ex minus 1ex}%x plus 1ex minus 1ex}
+}
+\makeatother
+%\setlength{\jot}{-1ex}
+
+
+
+
+%new environment definition
+\newenvironment{Contfigure}{%
+\renewcommand{\thefigure}{\Roman{chapter}.\arabic{figure} Continued.}%
+\addtocounter{figure}{-1}%
+\begin{figure}}{%
+\renewcommand{\thefigure}{\Roman{chapter}.\arabic{figure} }
+\end{figure}}
+
+%new environment definition
+\newenvironment{Conttable}{%
+\renewcommand{\thetable}{\Roman{chapter}.\arabic{table} Continued.}%
+\addtocounter{table}{-1}%
+\begin{table}}{%
+\renewcommand{\thetable}{\Roman{chapter}.\arabic{table} }
+\end{table}}
+%%%%%%%%%%%%%%%%%
+%*******************************************
+% End of AREA of Using Package
+% End of AREA of Using Package
+%*******************************************
+
+\begin{document}
+\pagestyle{empty}
+%\include{../data/Abstract}
+\include{Abstract}
+\end{document}
